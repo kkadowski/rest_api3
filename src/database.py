@@ -3,6 +3,8 @@ import datetime as dt
 import string
 import random
 
+
+
 db = SQLAlchemy()
 
 class User(db.Model):
@@ -12,7 +14,7 @@ class User(db.Model):
     password = db.Column(db.Text, nullable=False)
     created_at = db.Column(db.DateTime, default=dt.datetime.now())
     updated_at = db.Column(db.DateTime, default=dt.datetime.now())
-    bookmarks = db.relationship('Bookmark', backref="user")
+    #bookmarks = db.relationship('Bookmark', backref="user")
     
     def __repr__(self) -> str:
         return 'User: {self.username}'
@@ -36,7 +38,7 @@ class Bookmarks(db.Model):
         if link:
             self.generate_short_characters()
         else:
-            picked_chars
+            return picked_chars
                     
     
     def __init__(self, **kwargs):
