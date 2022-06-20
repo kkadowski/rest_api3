@@ -4,6 +4,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 import src.constants.http_status_codes as status_codes
 import validators
 from src.database import User, db
+from flask_jwt_extended import jwt_required, create_access_token, create_refresh_token, get_jwt_identity
 
 auth = Blueprint("auth", __name__, url_prefix="/api/v1/auth")
 
@@ -42,6 +43,33 @@ def register():
         }
     }), status_codes.HTTP_201_CREATED
 
+
+@auth.post('/login')
+def login():
+    email = request.json.get('email', '')
+    password = request.json.get('password', '')
+    
+    user = User.query.filter_by(email=email).first()
+    
+    if user:
+       is_pass_correct =  check_password_hash(user.password, password)
+       
+       if is_pass_correct:
+           refresh = create_refresh_token(identity = user.id)
+           access = create_refresh_token(identity = user.id)
+           
+           return jsonify({
+               'user':{
+                   'refresh': refresh,
+                   'access':access,
+                   'username':user.username,
+                   'email':user.email
+               }
+           }), status_codes.HTTP_200_OK
+    return jsonify({
+        "error": "Wrong credentials"
+    }), status_codes.HTTP_401_UNAUTHORIZED
+    
 
 @auth.get("/me")
 def me():
