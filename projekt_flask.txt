@@ -1,0 +1,41 @@
+#tworzenie środowiska venv
+    sudo apt install python3-virtualenv
+    python -m venv project
+    cd project
+    source bin/activate
+
+#GIT
+    sudo apt install git
+    git init
+    git status
+    git add .
+    git commit -m "pierwszy commit"
+    git remote add origin https://github.com/kkadowski/restapi3.git #KKpersephone357!
+    git push -u origin master
+    git add .
+    git commit -m "Poprawiony"
+
+pip3 install python-dotenv
+
+
+app.config["SQLALCHEMY_DATABASE_URI"]='postgresql://postgres:postgres@localhost/recipes'
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+
+export FLAS_ENV=developement
+export FLASK_APP=app
+export FLASK_APP=app
+
+
+#migracja bazy #dla Postrgesql
+    sudo apt-get install libpq-dev
+    sudo pip install psycopg2 
+    python manage.py migrate
+
+
+
+https://youtu.be/WFzRy8KVcrM?list=TLGGaJ9rBAoPbmkxNjA2MjAyMg&t=1244
+
+
+
+
