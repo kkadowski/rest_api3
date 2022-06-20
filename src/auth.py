@@ -4,7 +4,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 import src.constants.http_status_codes as status_codes
 import validators
 from src.database import User, db
-from flask_jwt_extended import jwt_required, create_access_token, create_refresh_token, get_jwt_identity
+from flask_jwt_extended import get_jwt_identity, jwt_required, create_access_token, create_refresh_token, get_jwt_identity
 
 auth = Blueprint("auth", __name__, url_prefix="/api/v1/auth")
 
@@ -56,7 +56,7 @@ def login():
        
        if is_pass_correct:
            refresh = create_refresh_token(identity = user.id)
-           access = create_refresh_token(identity = user.id)
+           access = create_access_token(identity = user.id)
            
            return jsonify({
                'user':{
@@ -72,5 +72,12 @@ def login():
     
 
 @auth.get("/me")
+@jwt_required()
 def me():
-    return {"user": "me"}
+    user_id = get_jwt_identity()
+    user = User.query.filter_by(id=user_id).first()
+  
+    return jsonify({
+        "user": user.username,
+        "email": user.email    
+        }), status_codes.HTTP_200_OK

@@ -33,9 +33,6 @@ export FLASK_APP=app
     python manage.py migrate
 
 
-
-https://youtu.be/WFzRy8KVcrM?list=TLGGaJ9rBAoPbmkxNjA2MjAyMg&t=1244
-
-
+https://youtu.be/WFzRy8KVcrM?list=TLGGaJ9rBAoPbmkyMDA2MjAyMg&t=4299
 
 
