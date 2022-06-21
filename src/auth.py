@@ -81,3 +81,15 @@ def me():
         "user": user.username,
         "email": user.email    
         }), status_codes.HTTP_200_OK
+
+
+@auth.get('/token/refresh')
+@jwt_required(refresh=True)
+def refresh_users_token():
+    identity = get_jwt_identity()
+    access = create_access_token(identity=identity)
+    
+    return jsonify({
+        'access': access
+    }), status_codes.HTTP_200_OK
+    
