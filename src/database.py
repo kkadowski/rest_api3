@@ -42,11 +42,9 @@ class Bookmark(db.Model):
     
     def __init__(self) -> None:
         super().__init__(**kwargs)
-        
         self.short_url = self.generate_short_characters()
         
-    
-    def __repr__(self):
+    def __repr__(self) -> str:
         return 'Bookmark -> {self.url}'
     
     

@@ -1,10 +1,11 @@
-from flask import Flask, jsonify, config
+from flask.json import jsonify
+import src.constants.http_status_codes as  status_codes
+from flask import Flask, config, redirect
 import os
 from src.auth import auth
 from src.bookmarks import bookmarks
-from src.database import db
+from src.database import db, Bookmark
 from flask_jwt_extended import JWTManager
-
 
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)

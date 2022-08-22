@@ -15,6 +15,7 @@ def register():
     password = request.json['password']
     if len(password) < 8:
         return jsonify({"error":"Password to short!"}), status_codes.HTTP_400_BAD_REQUEST
+    
     if len(username) < 3:
         return jsonify({"error":"Username to short!"}), status_codes.HTTP_400_BAD_REQUEST
     
